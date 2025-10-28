@@ -11,11 +11,15 @@ def render_index_page():
 def sent_detector():
     text_to_analyze = request.args.get("textToAnalyze")
     response = emotion_detector(text_to_analyze)
+
+    if response['dominant_emotion'] == None:
+        return "Invalid text! Please try again!"
+
     return( 
         f"For the given statemenet, the system response is"
         f" 'anger': {response['anger']}, 'disgust': {response['disgust']},"
         f" 'fear': {response['fear']}, 'joy': {response['joy']} and"
-        f" 'sadness':{response['sadness']}. The dominant emotion"
+        f" 'sadness': {response['sadness']}. The dominant emotion"
         f" is <b> {response['dominant_emotion']} </b>"
     )
 
